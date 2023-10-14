@@ -16,6 +16,7 @@ type DBTX interface {
 	QueryRowContext(context.Context, string, ...interface{}) *sql.Row
 }
 
+// New returns an instance of the queries for use with a DB connection.
 func New(db DBTX) *Queries {
 	return &Queries{db: db}
 }
