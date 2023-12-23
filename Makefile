@@ -21,4 +21,4 @@ server:
 mock:
 	mockgen -package mockdb -destination db/mock/store.go github.com/tayfurerkenci/backend-master-class-golang/db/sqlc Store
 
-.PHONY: postgres createdb dropdb migrateup migratedown migrateup1 migratedown2 sqlc server mock
+.PHONY: postgres createdb dropdb migrateup migratedown migrateup1 migratedown1 sqlc server mock

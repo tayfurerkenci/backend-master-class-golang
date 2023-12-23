@@ -13,8 +13,10 @@ import (
 // createRandomAccount creates a new account with random data
 // does not have 'Test' prefix, so it won't be run by 'go test'
 func createRandomAccount(t *testing.T) Account {
+	user := createRandomUser(t)
+
 	arg := CreateAccountParams{
-		Owner:    util.RandomOwner(),
+		Owner:    user.Username,
 		Balance:  util.RandomMoney(),
 		Currency: util.RandomCurrency(),
 	}
