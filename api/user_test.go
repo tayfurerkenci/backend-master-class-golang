@@ -20,7 +20,7 @@ import (
 )
 
 type eqCreateUserParamsMatcher struct {
-	arg db.CreateUserParams
+	arg      db.CreateUserParams
 	password string
 }
 
@@ -42,7 +42,6 @@ func (e eqCreateUserParamsMatcher) Matches(x interface{}) bool {
 func (e eqCreateUserParamsMatcher) String() string {
 	return fmt.Sprintf("matches arg %v and password %v", e.arg, e.password)
 }
-
 
 func EqCreateUserParams(arg db.CreateUserParams, password string) gomock.Matcher {
 	return eqCreateUserParamsMatcher{arg, password}
@@ -197,7 +196,6 @@ func TestCreateUserAPI(t *testing.T) {
 		})
 	}
 }
-
 
 func randomUser(t *testing.T) (user db.User, password string) {
 	password = util.RandomString(6)

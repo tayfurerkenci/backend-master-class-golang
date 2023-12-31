@@ -23,8 +23,8 @@ func addAuthorization(t *testing.T, request *http.Request, tokenMaker token.Make
 func TestAuthMiddleware(t *testing.T) {
 	// Define a test case struct to define our tests
 	testCases := []struct {
-		name      string
-		setupAuth func(t *testing.T, request *http.Request, tokenMaker token.Maker)
+		name          string
+		setupAuth     func(t *testing.T, request *http.Request, tokenMaker token.Maker)
 		checkResponse func(t *testing.T, recorder *httptest.ResponseRecorder)
 	}{
 		{
@@ -78,7 +78,6 @@ func TestAuthMiddleware(t *testing.T) {
 		tc := testCases[i]
 		t.Run(tc.name, func(t *testing.T) {
 			server := newTestServer(t, nil)
-
 
 			authPath := "/auth"
 			server.router.GET(

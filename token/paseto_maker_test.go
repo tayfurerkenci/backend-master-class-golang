@@ -47,25 +47,25 @@ func TestExpiredPasetoToken(t *testing.T) {
 }
 
 func TestInvalidPasetoToken(t *testing.T) {
-    payload, err := NewPayload(util.RandomOwner(), time.Minute)
-    require.NoError(t, err)
+	payload, err := NewPayload(util.RandomOwner(), time.Minute)
+	require.NoError(t, err)
 
-    // Create a new Paseto token with a symmetric key.
-    maker, err := NewPasetoMaker(util.RandomString(32))
-    require.NoError(t, err)
+	// Create a new Paseto token with a symmetric key.
+	maker, err := NewPasetoMaker(util.RandomString(32))
+	require.NoError(t, err)
 
 	// Create a new token.
-    token, err := maker.CreateToken(payload.Username, time.Minute)
-    require.NoError(t, err)
-    require.NotEmpty(t, token)
+	token, err := maker.CreateToken(payload.Username, time.Minute)
+	require.NoError(t, err)
+	require.NotEmpty(t, token)
 
-    // Create a new maker with a different symmetric key.
-    invalidMaker, err := NewPasetoMaker(util.RandomString(32))
-    require.NoError(t, err)
+	// Create a new maker with a different symmetric key.
+	invalidMaker, err := NewPasetoMaker(util.RandomString(32))
+	require.NoError(t, err)
 
-    // Try to verify the token with the wrong key.
-    payload, err = invalidMaker.VerifyToken(token)
-    require.Error(t, err)
-    require.ErrorContains(t, err, ErrInvalidToken.Error())
-    require.Nil(t, payload)
+	// Try to verify the token with the wrong key.
+	payload, err = invalidMaker.VerifyToken(token)
+	require.Error(t, err)
+	require.ErrorContains(t, err, ErrInvalidToken.Error())
+	require.Nil(t, payload)
 }
