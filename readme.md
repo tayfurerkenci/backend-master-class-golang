@@ -23,7 +23,12 @@ $env:GO111MODULE="on"; go get -u github.com/golang-migrate/migrate/v4/cmd/migrat
 ```bash
 docker images
 docker ps -a
+docker rmi <image_id>
 docker start <name>
 docker build -t simple-bank:latest
-docker rmi <image_id>
+docker run --name simple-bank --network simple-network -p 8080:8080 -e GIN_MODE=release simple-bank:latest
+docker container inspect <container_name>
+docker network ls
+docker network inspect <network_name>
+docker network create <network_name>
 ```

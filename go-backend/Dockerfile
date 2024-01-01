@@ -18,10 +18,14 @@ RUN go build -o main main.go
 # run stage
 FROM alpine:3.19
 WORKDIR /app
+
+# Copy the Pre-built binary file from the previous stage
 COPY --from=builder /app/main .
+# Copy the env file
+COPY app.env .
 
 # Expose port 8080 to the outside world
 EXPOSE 8080
 
 # Command to run the executable when the container starts
-CMD ["./app/main"]
+CMD ["./main"]
