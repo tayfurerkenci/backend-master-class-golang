@@ -11,3 +11,9 @@ All necessary commands are in the Makefile.
 ```bash
 migrate create -ext sql -dir db/migration -seq add_users
 ```
+
+### Update golang-migrate
+
+```bash
+$env:GO111MODULE="on"; go get -u github.com/golang-migrate/migrate/v4/cmd/migrate
+```
