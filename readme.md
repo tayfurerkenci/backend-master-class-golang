@@ -17,3 +17,13 @@ migrate create -ext sql -dir db/migration -seq add_users
 ```bash
 $env:GO111MODULE="on"; go get -u github.com/golang-migrate/migrate/v4/cmd/migrate
 ```
+
+### Docker commands
+
+```bash
+docker images
+docker ps -a
+docker start <name>
+docker build -t simple-bank:latest
+docker rmi <image_id>
+```
