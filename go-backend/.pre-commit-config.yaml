@@ -10,19 +10,19 @@ repos:
           ["@commitlint/cli@15.0.0", "@commitlint/config-conventional@15.0.0"]
       - id: go-fmt
         name: Run go fmt
-        entry: go fmt ./go-backend/...
+        entry: bash -c "cd go-backend && go fmt ./..."
         language: system
         pass_filenames: false
         stages: [commit]
       - id: go-vet
         name: Run go vet
-        entry: go vet ./go-backend/...
+        entry: bash -c "cd go-backend && go vet ./..."
         language: system
         pass_filenames: false
         stages: [commit]
       - id: go-test
         name: Run go test
-        entry: go test ./go-backend/...
+        entry: bash -c "cd go-backend && go test ./..."
         language: system
         pass_filenames: false
         stages: [commit]
