@@ -31,4 +31,5 @@ docker container inspect <container_name>
 docker network ls
 docker network inspect <network_name>
 docker network create <network_name>
+docker compose up
 ```
