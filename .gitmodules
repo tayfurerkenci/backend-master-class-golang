@@ -1,0 +1,3 @@
+[submodule "frontend-rtk"]
+	path = frontend-rtk
+	url = https://github.com/tayfurerkenci/frontend-rtk
