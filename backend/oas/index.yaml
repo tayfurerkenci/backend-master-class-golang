@@ -1,0 +1,152 @@
+openapi: 3.1.0
+info:
+  title: Simple Bank - OpenAPI 3.1
+  description: This is the OpenAPI 3.1 specification for the Simple Bank API.
+  termsOfService: http://swagger.io/terms/
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.0
+externalDocs:
+  description: Find out more about Swagger
+  url: http://swagger.io
+servers:
+  - url: http://localhost:8080
+    description: Local server
+
+security:
+  - PasetoAuth: []
+
+paths:
+  /users:
+    post:
+      tags:
+        - users
+      summary: Create a new user
+      description: Create a new user
+      operationId: createUser
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateUserRequest"
+      responses:
+        "200":
+          description: User created successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UserResponse"
+        "400":
+          description: Invalid input
+        "403":
+          description: "pq: duplicate key value violates unique constraint \"users_pkey\""
+/users/login:
+  post:
+    tags:
+      - users
+    summary: Log in a user
+    description: Log in a user
+    operationId: loginUser
+    requestBody:
+      description: A user login with a username and password
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/LoginUserRequest'
+    responses:
+      '200':
+        description: User logged in successfully
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginUserResponse'
+      '400':
+        description: Invalid input
+      '401':
+        description: "crypto/bcrypt: hashedPassword is not the hash of the given password"
+      '404':
+        description: "sql: no rows in result set"
+
+components:
+  schemas:
+    CreateUserRequest:
+      type: object
+      properties:
+        username:
+          type: string
+          description: The username of the user
+          example: johndoe
+          pattern: '^[a-zA-Z0-9]*$'  # alphanumeric characters
+        password:
+          type: string
+          description: The password of the user
+          minLength: 6  # minimum length of 6 characters
+          example: password
+        full_name:
+          type: string
+          description: The full name of the user
+          example: John Doe
+        email:
+          type: string
+          description: The email of the user
+          format: email  # email format
+          example: johndoe@example.com
+      required:
+        - username
+        - full_name
+        - email
+        - password
+    UserResponse:
+      type: object
+      properties:
+        username:
+          type: string
+          description: The username of the user
+          example: johndoe
+        full_name:
+          type: string
+          description: The full name of the user
+          example: John Doe
+        email:
+          type: string
+          description: The email of the user
+          format: email
+          example: johndoe@example.com
+        password_changed_at:
+          type: string
+          format: date-time
+          description: The time when the password was last changed
+          example: '2022-01-01T00:00:00Z'
+        created_at:
+          type: string
+          format: date-time
+          description: The time when the user was created
+          example: '2022-01-01T00:00:00Z'
+    LoginUserRequest:
+      type: object
+      properties:
+        username:
+          type: string
+          description: The username of the user
+          example: johndoe
+          pattern: '^[a-zA-Z0-9]*$'  # alphanumeric characters
+        password:
+          type: string
+          description: The password of the user
+          minLength: 6  # minimum length of 6 characters
+          example: password
+      required:
+        - username
+        - password
+    LoginUserResponse:
+      type: object
+      properties:
+        access_token:
+          type: string
+          description: The access token for the user
+          example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9
+        user:
+          $ref: '#/components/schemas/UserResponse'
